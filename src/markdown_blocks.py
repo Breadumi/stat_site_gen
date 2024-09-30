@@ -34,6 +34,9 @@ def markdown_to_blocks(document):
             block = ""
 
         i += 1
+    
+    if block != "":
+        blocks.append(block)
 
     return blocks
 
@@ -63,6 +66,7 @@ def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     children = []
     for block in blocks:
+
         block_type = block_to_block_type(block)
 
         if block_type == block_type_paragraph:
@@ -100,7 +104,7 @@ def heading_to_html_node(block):
 def code_to_html_node(block):
     temp = block.split("```", maxsplit=1)[1].rsplit("```", maxsplit=1)[0]
     nodes = text_to_textnodes(temp)
-    nodes = text_node_to_html_node(nodes)
+    nodes = [text_node_to_html_node(node) for node in nodes]
     return ParentNode("code", nodes)
 
 def quote_to_html_node(block):

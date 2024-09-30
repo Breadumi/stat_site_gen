@@ -106,7 +106,7 @@ def split_nodes_link(old_nodes):
 
             if cur_split[0] == "" and cur_split[1] == "":
                 new_node_list.append(
-                    TextNode(link[0], text_type_image, link[1])
+                    TextNode(link[0], text_type_link, link[1])
                     )
                 
                 return new_node_list
