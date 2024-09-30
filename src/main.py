@@ -1,5 +1,6 @@
 import shutil
 import os
+from markdown_blocks import markdown_to_html_node
 
 
 def main():
@@ -20,7 +21,12 @@ def copy_static_to_public():
     source_directory = static_path
     destination_directory = public_path
 
-    #copy_folder(source_directory, destination_directory)
+    copy_folder(source_directory, destination_directory)
+    source_file = "./content/index.md"
+    template_file = "./template.html"
+    destination_file = "./public/index.html"
+    generate_page(source_file, template_file, destination_file)
+
 
 
 
@@ -54,9 +60,22 @@ def extract_title(markdown):
     
     raise Exception("No h1 header in markdown file")
 
+def generate_page(from_path, template_path, dest_path):
+    
+    print(f"Generating page from {from_path} to {dest_path} using {template_path}")
+    md = open(from_path).read()
+    template = open(template_path).read()
+    html = markdown_to_html_node(md).to_html()
+    title = extract_title(md)
 
+    template = template.replace("{{ Title }}", title)
+    template = template.replace("{{ Content }}", html)
 
+    os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+    with open(dest_path, "w") as f:
+        f.write(template)
 
+    
 
 
 
