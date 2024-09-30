@@ -20,7 +20,7 @@ def copy_static_to_public():
     source_directory = static_path
     destination_directory = public_path
 
-    copy_folder(source_directory, destination_directory)
+    #copy_folder(source_directory, destination_directory)
 
 
 
@@ -43,7 +43,18 @@ def copy_folder(source_dir, destination_dir):
             shutil.copy(item_path, destination_dir)
             print(f"Copying {item_path} to {destination_dir}")
 
-    print(f"Finished copying folder {source_dir} to {destination_dir}")        
+    print(f"Finished copying folder {source_dir} to {destination_dir}")       
+
+def extract_title(markdown):
+    lines = markdown.split("\n")
+
+    for line in lines:
+        if (line[0:2]) == "# ":
+            return line[2:].strip()
+    
+    raise Exception("No h1 header in markdown file")
+
+
 
 
 

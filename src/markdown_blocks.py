@@ -78,8 +78,6 @@ def markdown_to_html_node(markdown):
         elif block_type == block_type_olist:
             children.append(olist_to_html_node(block))        
         else:
-            print("we're here for some reason")
-            print(block)
             print("Error found for:", block_type)
             raise ValueError("Invalid block type")
 
